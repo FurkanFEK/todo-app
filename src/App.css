@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.checkbox {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.icon {
+  size: 0ch;
+}
+
+
+
