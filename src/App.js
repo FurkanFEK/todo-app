@@ -4,37 +4,36 @@ import './App.css';
 
 function App() {
 
-  const [todo, setTodo] = useState()
+  const [todoTitle, setTodoTitle] = useState("")
+  const [todoBody, setTodoBody] = useState()
+
+  
   const [todos, setTodos] = useState([])
 
-  const [todoEditing, setTodoEditing] = useState(null)
+  const [editTodoold, setEditTodoold] = useState(null)
   const [editingText, setEditingText] = useState("")
   const [editingTitle, setEditingTitle] = useState("")
 
   const [modal, setModal] = useState(false)
 
-  const [todoTitle, setTodoTitle] = useState("")
+  let date = new Date()
 
 
   const submitHandler = e => {
     e.preventDefault()
 
-  const gunler = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"]
 
     const newTodo = {
       id: new Date().getTime(),
-      createTimeHour: new Date().getHours(),
-      createTimeMinute: new Date().getMinutes(),
-      createTimeSeconds: new Date().getSeconds(),
-      createTimeDay: gunler[new Date().getDay()],
+      createdAt: date.toLocaleString('en-GB'),
       title: todoTitle,
-      text: todo,
-      düzenlendi: false
+      text: todoBody,
+      duzenlendi: false
     }
 
     setTodos([...todos].concat(newTodo))
 
-    setTodo("") 
+    setTodoBody("") 
     setTodoTitle("") 
   }
 
@@ -50,18 +49,16 @@ function App() {
       if(todo.id == id){
         todo.title = editingTitle;
         todo.text = editingText
-        todo.createTimeHour = new Date().getHours()
-        todo.createTimeMinute = new Date().getMinutes()
-        todo.createTimeSeconds = new Date().getSeconds()
-        todo.düzenlendi = true
+        todo.createdAt = date.toLocaleString('en-GB');
+        todo.duzenlendi = true
       }
       return todo
     })
     setTodos(updatedTodos)
-    setTodoEditing(null)
+    setEditTodoold(null)
     setEditingText("")
     setEditingTitle("")
-    todo.düzenlendi = true
+    todoBody.duzenlendi = true
   }
 
   
@@ -76,6 +73,7 @@ function App() {
         <div>
         <p>To do yok!</p>
         <button onClick={() => setModal(true)} className="btn">Todo ekleme ekranını aç!</button>
+      
         {
           modal == true ? <div>
             <hr/>
@@ -87,14 +85,12 @@ function App() {
           <input
           placeholder='Todo içeriği giriniz!' 
           type="text"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}/>
+          value={todoBody}
+          onChange={(e) => setTodoBody(e.target.value)}/>
           <button type='submit'>Ekle</button>
           </form>
           </div>
-          :
-         <>
-         </>  
+          : null 
         }
         </div>
         :
@@ -107,8 +103,8 @@ function App() {
         <input
         placeholder='Todo Giriniz!' 
         type="text"
-        value={todo}
-        onChange={(e) => setTodo(e.target.value)}/>
+        value={todoBody}
+        onChange={(e) => setTodoBody(e.target.value)}/>
         <button type='submit'>Ekle</button>
         </form>
         </div>
@@ -118,7 +114,7 @@ function App() {
       {todos.map((todo) => 
       <div>
         {
-        todoEditing == todo.id ?
+        editTodoold == todo.id ?
 
         <div>
         <input type="text" onChange={(e) => setEditingTitle(e.target.value)} value={editingTitle} placeholder={todo.title}/>
@@ -131,11 +127,11 @@ function App() {
         <br/>
         Todo: {todo.text}
         <br/>
-        Oluşturulma Tarihi: {todo.createTimeHour}:{todo.createTimeMinute}:{todo.createTimeSeconds} - {todo.createTimeDay}
+        Oluşturulma Tarihi: {todo.createdAt}
         <br/>
         <button onClick={() => deleteTodo(todo.id)}>Sil</button>
 
-        <button onClick={() => setTodoEditing(todo.id)}>Düzenle</button>
+        <button onClick={() => setEditTodoold(todo.id)}>Düzenle</button>
         </div>
         }
         <hr/>
