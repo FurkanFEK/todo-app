@@ -4,10 +4,10 @@ import './App.css';
 
 function App() {
 
+  
   const [todoTitle, setTodoTitle] = useState("")
   const [todoBody, setTodoBody] = useState()
 
-  
   const [todos, setTodos] = useState([])
 
   const [editTodoold, setEditTodoold] = useState(null)
@@ -28,7 +28,7 @@ function App() {
       createdAt: date.toLocaleString('en-GB'),
       title: todoTitle,
       text: todoBody,
-      duzenlendi: false
+      edited: false
     }
 
     setTodos([...todos].concat(newTodo))
@@ -50,7 +50,7 @@ function App() {
         todo.title = editingTitle;
         todo.text = editingText
         todo.createdAt = date.toLocaleString('en-GB');
-        todo.duzenlendi = true
+        todo.edited = true
       }
       return todo
     })
@@ -58,7 +58,7 @@ function App() {
     setEditTodoold(null)
     setEditingText("")
     setEditingTitle("")
-    todoBody.duzenlendi = true
+    todoBody.edited = true
   }
 
   
@@ -69,43 +69,45 @@ function App() {
       <br/>
       <hr/>
       {
-        todos == 0 ? 
+        modal==false ? 
         <div>
-        <p>To do yok!</p>
-        <button onClick={() => setModal(true)} className="btn">Todo ekleme ekranını aç!</button>
-      
+        <p>THERE IS NO TODO</p>
+        <button onClick={() => setModal(true)} className="btn btn-success"  type="button" data-toggle="modal" data-target="#exampleModalCenter">OPEN TODO ADD FORM!</button>
         {
-          modal == true ? <div>
-            <hr/>
-          <form onSubmit={submitHandler}>
+          modal == true && todos == 0 ? <div>
+          <hr/>
+          <div>
+            <form onSubmit={submitHandler}>
           <input 
-          placeholder='Todo başlığı giriniz!'
+          placeholder='TITLE OF TODO'
           onChange={(e) => setTodoTitle(e.target.value)}
           />
           <input
-          placeholder='Todo içeriği giriniz!' 
+          placeholder='BODY OF TODO' 
           type="text"
           value={todoBody}
           onChange={(e) => setTodoBody(e.target.value)}/>
-          <button type='submit'>Ekle</button>
+          <button type='submit' className="btn btn-success">SUBMIT</button>
           </form>
+          </div>
           </div>
           : null 
         }
+        
         </div>
         :
         <div>
         <form onSubmit={submitHandler}>
         <input 
-          placeholder='Todo başlığı giriniz!'
+          placeholder='TITLE OF TODO'
           onChange={(e) => setTodoTitle(e.target.value)}
         />
         <input
-        placeholder='Todo Giriniz!' 
+        placeholder='BODY OF TODO' 
         type="text"
         value={todoBody}
         onChange={(e) => setTodoBody(e.target.value)}/>
-        <button type='submit'>Ekle</button>
+        <button type='submit' className="btn btn-success">SUBMIT</button>
         </form>
         </div>
       }
@@ -119,19 +121,19 @@ function App() {
         <div>
         <input type="text" onChange={(e) => setEditingTitle(e.target.value)} value={editingTitle} placeholder={todo.title}/>
         <input type="text" onChange={(e) => setEditingText(e.target.value)} value={editingText} placeholder={todo.text}/>
-        <button onClick={() => editTodo(todo.id)}>Düzeni Onayla</button>
+        <button onClick={() => editTodo(todo.id)} className="btn btn-success">CONFIRM EDIT</button>
         </div>
          : 
         <div>
-        Todo Başlığı: <b>{todo.title}</b>
+        TITLE OF TODO: <b>{todo.title}</b>
         <br/>
-        Todo: {todo.text}
+        BODY OF TODO: {todo.text}
         <br/>
-        Oluşturulma Tarihi: {todo.createdAt}
+        CREATED AT: {todo.createdAt}
         <br/>
-        <button onClick={() => deleteTodo(todo.id)}>Sil</button>
+        <button onClick={() => deleteTodo(todo.id)} className="btn btn-danger">DELETE</button>
 
-        <button onClick={() => setEditTodoold(todo.id)}>Düzenle</button>
+        <button onClick={() => setEditTodoold(todo.id)} className="btn btn-info">EDIT</button>
         </div>
         }
         <hr/>
