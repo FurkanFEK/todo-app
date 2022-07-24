@@ -7,14 +7,16 @@ const Form = () => {
   const addTodo = useTodoStore((state) => state.addTodo);
   const updateTodo = useTodoStore((state) => state.updateTodo);
   const modalSituation = useTodoStore((state) => state.modalSituation);
+  const EditTodo = useTodoStore((state) => state.EditTodo);
+  const isEditMode = useTodoStore((state) => state.isEditMode);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isEditMode = false;
 
-    if (isEditMode) {
-      updateTodo();
+    if (EditTodo.isEditMode) {
+      EditTodo();
     }
+
     setFormState({ title: "", body: "" });
   };
 
@@ -46,7 +48,7 @@ const Form = () => {
           class="btn btn-success"
           onClick={() => addTodo(formState.body, formState.title)}
         >
-          Add
+          {isEditMode ? <div>Update</div> : <div>Add</div>}
         </button>
         <button
           onClick={() => modalSituation.closeModal()}

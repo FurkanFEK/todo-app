@@ -3,7 +3,11 @@ import { useTodoStore } from "./useTodoStore";
 const TodoItem = (props) => {
   const deleteTodo = useTodoStore((state) => state.deleteTodo);
 
+  const handleClickEdit = useTodoStore((state) => state.handleClickEdit);
+
   const completeSituation = useTodoStore((state) => state.completeSituation);
+
+  const EditTodo = useTodoStore((state) => state.EditTodo);
 
   return (
     <div className="App">
@@ -49,7 +53,12 @@ const TodoItem = (props) => {
         <button onClick={() => deleteTodo(props.id)} class="btn btn-danger">
           Delete
         </button>
-        <button class="btn btn-primary">edit</button>
+        <button
+          class="btn btn-primary"
+          onClick={() => handleClickEdit(props.id)}
+        >
+          Edit
+        </button>
       </div>
       <hr />
     </div>

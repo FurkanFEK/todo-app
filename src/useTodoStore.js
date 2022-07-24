@@ -3,6 +3,8 @@ import create from "zustand";
 export const useTodoStore = create((set, get) => ({
   todos: [],
 
+  isEditMode: false,
+
   modalSituation: {
     modalIsOpen: false,
     openModal: () =>
@@ -28,6 +30,7 @@ export const useTodoStore = create((set, get) => ({
         },
       ],
       modalIsOpen: false,
+      isEditMode: false,
     })),
 
   deleteTodo: (todoId) =>
@@ -39,6 +42,7 @@ export const useTodoStore = create((set, get) => ({
     const todo = get().todos.find((i) => i.id === todoId);
 
     set(() => ({
+      isEditMode: true,
       modalIsOpen: true,
       formState: {
         title: todo.title,
