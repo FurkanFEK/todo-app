@@ -11,7 +11,7 @@ export default function TodoList() {
 
   const modalIsOpen = useTodoStore((state) => state.modalIsOpen);
 
-  const modalSituation = useTodoStore((state) => state.modalSituation);
+  const activateModal = useTodoStore((state) => state.activateModal);
 
   const customStyles = {
     content: {
@@ -21,6 +21,11 @@ export default function TodoList() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
+      background: "#eee",
+      borderRadius: "20px",
+    },
+    overlay: {
+      backgroundColor: "rgba(255, 255, 255, 0.45)",
     },
   };
 
@@ -31,10 +36,7 @@ export default function TodoList() {
       {todos == 0 ? (
         <div>
           <h5>there is no any todo</h5>
-          <button
-            onClick={() => modalSituation.openModal()}
-            class="btn btn-success"
-          >
+          <button onClick={() => activateModal(true)} class="btn btn-success">
             open add todo form
           </button>
         </div>
@@ -43,7 +45,7 @@ export default function TodoList() {
           <Modal isOpen={modalIsOpen} style={customStyles}>
             <Form />
           </Modal>
-          <button onClick={() => modalSituation.openModal()}>
+          <button onClick={() => activateModal(true)}>
             open add todo form
           </button>
           <hr />

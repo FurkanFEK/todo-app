@@ -5,17 +5,12 @@ export const useTodoStore = create((set, get) => ({
 
   isEditMode: false,
 
-  modalSituation: {
-    modalIsOpen: false,
-    openModal: () =>
-      set((state) => ({
-        modalIsOpen: true,
-      })),
-    closeModal: () =>
-      set((state) => ({
-        modalIsOpen: false,
-      })),
-  },
+  modalIsOpen: false,
+
+  activateModal: (value) =>
+    set((state) => ({
+      modalIsOpen: value,
+    })),
 
   addTodo: (todoText, todoTitle) =>
     set((state) => ({
@@ -46,37 +41,28 @@ export const useTodoStore = create((set, get) => ({
       modalIsOpen: true,
       formState: {
         title: todo.title,
-        body: todo.body,
+        text: todo.body,
       },
     }));
   },
 
-  completeSituation: {
-    completeTodo: (todoId) =>
-      set((state) => ({
-        todos: state.todos.map((todo) => {
-          if (todo.id === todoId) {
-            return {
-              ...todo,
-              isCompleted: true,
-            };
-          }
-
-          return todo;
-        }),
-      })),
-    incompleteTodo: (todoId, value) =>
-      set((state) => ({
-        todos: state.todos.map((todo) => {
-          if (todo.id === todoId) {
-            return {
-              ...todo,
-              isCompleted: value,
-            };
-          }
-
-          return todo;
-        }),
-      })),
+  UpdateTodo: (todoId) => {
+    set((state) => ({
+      todos: state.todos.filter((todo) => todo.id !== todoId),
+    }));
   },
+
+  isCompleteTodo: (todoId, value) =>
+    set((state) => ({
+      todos: state.todos.map((todo) => {
+        if (todo.id === todoId) {
+          return {
+            ...todo,
+            isCompleted: value,
+          };
+        }
+
+        return todo;
+      }),
+    })),
 }));

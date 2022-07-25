@@ -5,7 +5,7 @@ const TodoItem = (props) => {
 
   const handleClickEdit = useTodoStore((state) => state.handleClickEdit);
 
-  const completeSituation = useTodoStore((state) => state.completeSituation);
+  const isCompleteTodo = useTodoStore((state) => state.isCompleteTodo);
 
   const EditTodo = useTodoStore((state) => state.EditTodo);
 
@@ -37,14 +37,14 @@ const TodoItem = (props) => {
         <br />
         {!props.isCompleted ? (
           <button
-            onClick={() => completeSituation.completeTodo(props.id)}
+            onClick={() => isCompleteTodo(props.id, true)}
             class="btn btn-success"
           >
             Done
           </button>
         ) : (
           <button
-            onClick={() => completeSituation.incompleteTodo(props.id)}
+            onClick={() => isCompleteTodo(props.id, false)}
             class="btn btn-secondary"
           >
             UnDone

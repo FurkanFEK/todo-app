@@ -2,19 +2,20 @@ import { useState } from "react";
 import { useTodoStore } from "./useTodoStore";
 import Modal from "react-modal";
 
-const Form = () => {
+const Form = (todoId) => {
   const [formState, setFormState] = useState({ title: "", body: "" });
   const addTodo = useTodoStore((state) => state.addTodo);
-  const updateTodo = useTodoStore((state) => state.updateTodo);
-  const modalSituation = useTodoStore((state) => state.modalSituation);
+  const UpdateTodo = useTodoStore((state) => state.UpdateTodo);
+  const activateModal = useTodoStore((state) => state.activateModal);
   const EditTodo = useTodoStore((state) => state.EditTodo);
   const isEditMode = useTodoStore((state) => state.isEditMode);
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (EditTodo.isEditMode) {
-      EditTodo();
+    if (isEditMode) {
+      UpdateTodo(todoId);
     }
 
     setFormState({ title: "", body: "" });
@@ -50,10 +51,7 @@ const Form = () => {
         >
           {isEditMode ? <div>Update</div> : <div>Add</div>}
         </button>
-        <button
-          onClick={() => modalSituation.closeModal()}
-          class="btn btn-danger"
-        >
+        <button onClick={() => activateModal(false)} class="btn btn-danger">
           close modal
         </button>
       </form>
