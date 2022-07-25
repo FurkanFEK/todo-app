@@ -2,20 +2,21 @@ import { useState } from "react";
 import { useTodoStore } from "./useTodoStore";
 import Modal from "react-modal";
 
-const Form = (todoId) => {
+const Form = () => {
   const [formState, setFormState] = useState({ title: "", body: "" });
   const addTodo = useTodoStore((state) => state.addTodo);
   const UpdateTodo = useTodoStore((state) => state.UpdateTodo);
   const activateModal = useTodoStore((state) => state.activateModal);
-  const EditTodo = useTodoStore((state) => state.EditTodo);
   const isEditMode = useTodoStore((state) => state.isEditMode);
-  const deleteTodo = useTodoStore((state) => state.deleteTodo);
+  const changeEditMode = useTodoStore((state) => state.changeEditMode);
+  const todo = useTodoStore((state) => state.todo);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isEditMode) {
-      UpdateTodo(todoId);
+      addTodo(formState.title, formState.body);
+      UpdateTodo();
     }
 
     setFormState({ title: "", body: "" });
@@ -26,7 +27,8 @@ const Form = (todoId) => {
   };
 
   const closeModal = () => {
-    UpdateTodo(todoId);
+    isEditMode ? changeEditMode(false) : changeEditMode(true);
+
     activateModal(false);
   };
 
@@ -54,7 +56,7 @@ const Form = (todoId) => {
           class="btn btn-success"
           onClick={
             isEditMode
-              ? () => UpdateTodo()
+              ? () => UpdateTodo(todo.id)
               : () => addTodo(formState.body, formState.title)
           }
         >

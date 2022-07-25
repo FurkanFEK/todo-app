@@ -12,6 +12,12 @@ export const useTodoStore = create((set, get) => ({
       modalIsOpen: value,
     })),
 
+  activateEditMode: (value) => {
+    set(() => ({
+      isEditMode: value,
+    }));
+  },
+
   addTodo: (todoText, todoTitle) =>
     set((state) => ({
       todos: [
@@ -46,10 +52,21 @@ export const useTodoStore = create((set, get) => ({
     }));
   },
 
-  UpdateTodo: (todoId) => {
+  changeEditMode: (value) =>
     set((state) => ({
-      todos: state.todos.filter((todo) => todo.id !== todoId),
+      isEditMode: value,
+    })),
+
+  UpdateTodo: (todoId) => {
+    const todo = get().todos.find((i) => i.id === todoId);
+
+    set((state) => ({
       isEditMode: false,
+      modalIsOpen: false,
+      formState: {
+        title: todo.title,
+        text: todo.body,
+      },
     }));
   },
 

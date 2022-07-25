@@ -7,8 +7,6 @@ const TodoItem = (props) => {
 
   const isCompleteTodo = useTodoStore((state) => state.isCompleteTodo);
 
-  const EditTodo = useTodoStore((state) => state.EditTodo);
-
   return (
     <div className="App">
       <div>
