@@ -25,6 +25,11 @@ const Form = (todoId) => {
     setFormState((s) => ({ ...s, [field]: e.target.value }));
   };
 
+  const closeModal = () => {
+    UpdateTodo(todoId);
+    activateModal(false);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -47,11 +52,15 @@ const Form = (todoId) => {
         <button
           type="submit"
           class="btn btn-success"
-          onClick={() => addTodo(formState.body, formState.title)}
+          onClick={
+            isEditMode
+              ? () => UpdateTodo()
+              : () => addTodo(formState.body, formState.title)
+          }
         >
           {isEditMode ? <div>Update</div> : <div>Add</div>}
         </button>
-        <button onClick={() => activateModal(false)} class="btn btn-danger">
+        <button onClick={() => closeModal()} class="btn btn-danger">
           close modal
         </button>
       </form>

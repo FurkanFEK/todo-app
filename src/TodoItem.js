@@ -35,6 +35,11 @@ const TodoItem = (props) => {
         ></span>
         CREATED AT: <b>{props.createdAt}</b>
         <br />
+        {props.isCompleted ? (
+          <div>
+            MARKED AS DONE AT: <b>{new Date().toLocaleString("en-GB")}</b>
+          </div>
+        ) : null}
         {!props.isCompleted ? (
           <button
             onClick={() => isCompleteTodo(props.id, true)}

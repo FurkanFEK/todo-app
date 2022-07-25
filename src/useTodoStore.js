@@ -8,7 +8,7 @@ export const useTodoStore = create((set, get) => ({
   modalIsOpen: false,
 
   activateModal: (value) =>
-    set((state) => ({
+    set(() => ({
       modalIsOpen: value,
     })),
 
@@ -49,6 +49,7 @@ export const useTodoStore = create((set, get) => ({
   UpdateTodo: (todoId) => {
     set((state) => ({
       todos: state.todos.filter((todo) => todo.id !== todoId),
+      isEditMode: false,
     }));
   },
 
