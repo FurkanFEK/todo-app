@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTodoStore } from "./useTodoStore";
 import Modal from "react-modal";
 
-const Form = () => {
+const Form = (props) => {
   const [formState, setFormState] = useState({ title: "", body: "" });
   const addTodo = useTodoStore((state) => state.addTodo);
   const UpdateTodo = useTodoStore((state) => state.UpdateTodo);
@@ -15,8 +15,8 @@ const Form = () => {
     e.preventDefault();
 
     if (isEditMode) {
-      addTodo(formState.title, formState.body);
-      UpdateTodo();
+      addTodo(formState.body, formState.title);
+      UpdateTodo(formState.body, formState.title, props.id);
     }
 
     setFormState({ title: "", body: "" });

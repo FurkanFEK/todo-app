@@ -42,20 +42,12 @@ export const useTodoStore = create((set, get) => ({
   handleClickEdit: (todoId) => {
     const todo = get().todos.find((i) => i.id === todoId);
 
-    set(() => ({
+    set((state) => ({
       isEditMode: true,
       modalIsOpen: true,
-      formState: {
-        title: todo.title,
-        text: todo.body,
-      },
+      todos: state.todos.filter((todo) => todo.id !== todoId),
     }));
   },
-
-  changeEditMode: (value) =>
-    set((state) => ({
-      isEditMode: value,
-    })),
 
   UpdateTodo: (todoId) => {
     const todo = get().todos.find((i) => i.id === todoId);
@@ -63,12 +55,13 @@ export const useTodoStore = create((set, get) => ({
     set((state) => ({
       isEditMode: false,
       modalIsOpen: false,
-      formState: {
-        title: todo.title,
-        text: todo.body,
-      },
     }));
   },
+
+  changeEditMode: (value) =>
+    set((state) => ({
+      isEditMode: value,
+    })),
 
   isCompleteTodo: (todoId, value) =>
     set((state) => ({
