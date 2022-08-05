@@ -7,6 +7,8 @@ export const useTodoStore = create((set, get) => ({
 
   modalIsOpen: false,
 
+  infos: { title: "", text: "" },
+
   activateModal: (value) =>
     set(() => ({
       modalIsOpen: value,
@@ -43,6 +45,10 @@ export const useTodoStore = create((set, get) => ({
     const todo = get().todos.find((i) => i.id === todoId);
 
     set((state) => ({
+      infos: {
+        title: todo.title,
+        text: todo.text,
+      },
       isEditMode: true,
       modalIsOpen: true,
       todos: state.todos.filter((todo) => todo.id !== todoId),

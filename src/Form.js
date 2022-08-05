@@ -10,6 +10,7 @@ const Form = (props) => {
   const isEditMode = useTodoStore((state) => state.isEditMode);
   const changeEditMode = useTodoStore((state) => state.changeEditMode);
   const todo = useTodoStore((state) => state.todo);
+  const infos = useTodoStore((state) => state.infos);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ const Form = (props) => {
           name="newTodoTitle"
           value={formState.title}
           onChange={(e) => onChange(e, "title")}
-          placeholder="TODO TITLE"
+          placeholder={isEditMode ? infos.title : "TODO TITLE"}
         />
         <input
           type="text"
@@ -49,7 +50,7 @@ const Form = (props) => {
           name="newTodo"
           value={formState.body}
           onChange={(e) => onChange(e, "body")}
-          placeholder="TODO VALUE"
+          placeholder={isEditMode ? infos.text : "TODO VALUE"}
         />
         <button
           type="submit"
