@@ -16,8 +16,7 @@ const Form = (props) => {
     e.preventDefault();
 
     if (isEditMode) {
-      addTodo(formState.body, formState.title);
-      UpdateTodo(formState.body, formState.title, props.id);
+      UpdateTodo(props.id, formState.body, formState.title);
     }
 
     setFormState({ title: "", body: "" });

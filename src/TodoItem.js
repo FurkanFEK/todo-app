@@ -7,6 +7,8 @@ const TodoItem = (props) => {
 
   const isCompleteTodo = useTodoStore((state) => state.isCompleteTodo);
 
+  const isCompleted = useTodoStore((state) => state.isCompleted);
+
   return (
     <div className="App">
       <div>
@@ -56,12 +58,14 @@ const TodoItem = (props) => {
         <button onClick={() => deleteTodo(props.id)} class="btn btn-danger">
           Delete
         </button>
-        <button
-          class="btn btn-primary"
-          onClick={() => handleClickEdit(props.id)}
-        >
-          Edit
-        </button>
+        {props.isCompleted ? null : (
+          <button
+            class="btn btn-primary"
+            onClick={() => handleClickEdit(props.id)}
+          >
+            Edit
+          </button>
+        )}
       </div>
       <hr />
     </div>
