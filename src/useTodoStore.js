@@ -54,12 +54,19 @@ export const useTodoStore = create((set, get) => ({
     }));
   },
 
-  UpdateTodo: (todoId) => {
-    const todo = get().todos.find((i) => i.id === todoId);
-
+  UpdateTodo: (todoText, todoTitle) => {
     set((state) => ({
       isEditMode: false,
       modalIsOpen: false,
+      todos: state.todos.map((todo) => {
+        return {
+          ...todo,
+          title: todoTitle,
+          text: todoText,
+        };
+
+        return todo;
+      }),
     }));
   },
 
