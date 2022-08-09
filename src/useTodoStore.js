@@ -51,7 +51,6 @@ export const useTodoStore = create((set, get) => ({
       },
       isEditMode: true,
       modalIsOpen: true,
-      todos: state.todos.filter((todo) => todo.id !== todoId),
     }));
   },
 

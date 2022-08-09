@@ -13,12 +13,7 @@ export default function TodoList() {
 
   const activateModal = useTodoStore((state) => state.activateModal);
 
-  const activateEditMode = useTodoStore((state) => state.activateEditMode);
-
-  const firstScreenModalActivator = () => {
-    activateEditMode(false);
-    activateModal(true);
-  };
+  const changeEditMode = useTodoStore((state) => state.changeEditMode);
 
   const customStyles = {
     content: {
@@ -44,7 +39,10 @@ export default function TodoList() {
         <div>
           <h5>there is no any todo</h5>
           <button
-            onClick={() => firstScreenModalActivator()}
+            onClick={() => {
+              changeEditMode(false);
+              activateModal(true);
+            }}
             class="btn btn-success"
           >
             open add todo form
@@ -55,7 +53,12 @@ export default function TodoList() {
           <Modal isOpen={modalIsOpen} style={customStyles}>
             <Form />
           </Modal>
-          <button onClick={() => firstScreenModalActivator()}>
+          <button
+            onClick={() => {
+              changeEditMode(false);
+              activateModal(true);
+            }}
+          >
             open add todo form
           </button>
           <hr />
