@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTodoStore } from "./useTodoStore";
 
-const Form = (props) => {
+const Form = () => {
   const [formState, setFormState] = useState({ title: "", body: "" });
   const addTodo = useTodoStore((state) => state.addTodo);
   const UpdateTodo = useTodoStore((state) => state.UpdateTodo);
@@ -12,11 +12,6 @@ const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (isEditMode) {
-      addTodo(formState.body, formState.title);
-      UpdateTodo(formState.body, formState.title);
-    }
 
     setFormState({ title: "", body: "" });
   };

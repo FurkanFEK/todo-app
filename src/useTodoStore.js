@@ -51,6 +51,7 @@ export const useTodoStore = create((set, get) => ({
       },
       isEditMode: true,
       modalIsOpen: true,
+      todos: state.todos.filter((todo) => todo.id !== todoId),
     }));
   },
 
@@ -58,15 +59,16 @@ export const useTodoStore = create((set, get) => ({
     set((state) => ({
       isEditMode: false,
       modalIsOpen: false,
-      todos: state.todos.map((todo) => {
-        return {
-          ...todo,
-          title: todoTitle,
+      todos: [
+        ...state.todos,
+        {
           text: todoText,
-        };
-
-        return todo;
-      }),
+          title: todoTitle,
+          id: new Date(),
+          isCompleted: false,
+          createdAt: new Date().toLocaleString("en-GB"),
+        },
+      ],
     }));
   },
 

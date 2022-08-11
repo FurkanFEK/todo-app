@@ -15,7 +15,7 @@ const TodoItem = (props) => {
             textDecoration: props.isCompleted ? "line-through" : "unset",
           }}
         >
-          TITLE OF TODO: <b>{props.title}</b>
+          TITLE OF TODO:<b>{props.title}</b>
         </span>
         <br />
         <span
@@ -23,7 +23,7 @@ const TodoItem = (props) => {
             textDecoration: props.isCompleted ? "line-through" : "unset",
           }}
         >
-          BODY OF TODO: <b>{props.text}</b>
+          BODY OF TODO:<b>{props.text}</b>
         </span>
         <br />
         <span
@@ -59,7 +59,9 @@ const TodoItem = (props) => {
         {props.isCompleted ? null : (
           <button
             class="btn btn-primary"
-            onClick={() => handleClickEdit(props.id)}
+            onClick={() => {
+              handleClickEdit(props.id);
+            }}
           >
             Edit
           </button>

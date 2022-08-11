@@ -37,7 +37,7 @@ export default function TodoList() {
       <hr />
       {todos == 0 ? (
         <div>
-          <h5>there is no any todo</h5>
+          <h5>there is no todo</h5>
           <button
             onClick={() => {
               changeEditMode(false);
