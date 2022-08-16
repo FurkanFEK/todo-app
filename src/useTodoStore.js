@@ -30,6 +30,7 @@ export const useTodoStore = create((set, get) => ({
           id: new Date(),
           isCompleted: false,
           createdAt: new Date().toLocaleString("en-GB"),
+          markedAsDoneAt: null,
         },
       ],
       modalIsOpen: false,
@@ -84,6 +85,7 @@ export const useTodoStore = create((set, get) => ({
           return {
             ...todo,
             isCompleted: value,
+            markedAsDoneAt: new Date().toLocaleString("en-GB"),
           };
         }
 

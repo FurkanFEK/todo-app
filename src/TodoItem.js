@@ -35,7 +35,7 @@ const TodoItem = (props) => {
         <br />
         {props.isCompleted ? (
           <div>
-            MARKED AS DONE AT: <b>{new Date().toLocaleString("en-GB")}</b>
+            MARKED AS DONE AT: <b>{props.markedAsDoneAt}</b>
           </div>
         ) : null}
         {!props.isCompleted ? (
